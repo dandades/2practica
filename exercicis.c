@@ -30,6 +30,26 @@ void InitData(){
 }
 
 //------------------------------------------------------------------------
+// EXERCICI 1
+
+void PrintVect( float Vect[N], int from, int numel){
+
+	int i;
+	int size = ( from + numel );
+
+	for( i = from; i < size; i++ )
+		printf("%f ", Vect[i]);
+	printf("\n");
+}
+
+int main() {
+
+	InitData();
+        PrintVect( V1, 0, 10);
+
+}
+
+//------------------------------------------------------------------------
 // EXERCICI 2
 
 
@@ -40,6 +60,26 @@ void PrintRow( float mat[N][N], int row, int from, int numel ){
   printf("\n");
 }
 
+//------------------------------------------------------------------------
+// EXERCICI 3
+
+void MultEscalar( float vect[N], float vectres[N], float alfa){
+
+	int i;
+	for( i = 0; i < N; i++ ){
+		vectres[i] = vect[i] * alfa;
+	}
+}
+
+int main() {
+
+	InitData();
+	float nouVector[N];
+	float num = 3.5;
+
+	MultEscalar( V1, nouVector, num);
+
+}
 
 //------------------------------------------------------------------------
 // EXERCICI 4
@@ -51,6 +91,22 @@ float Scalar( float vect1[N], float vect2[N] ) {
     producte += vect1[i] * vect2[i];
   }
   printf("%f\n", producte);
+}
+//------------------------------------------------------------------------
+// EXERCICI 5 (ACABAR)
+
+float Magnitude( float vect[N] ){
+
+	
+	}
+}
+
+int main() {
+
+	InitData();
+
+	Magnitude( V1 );
+
 }
 
 //------------------------------------------------------------------------
@@ -69,6 +125,11 @@ int Ortogonal( float vect1[N], float vect2[N] ){
   }
 }
 }
+
+//------------------------------------------------------------------------
+// EXERCICI 7 (FER)
+
+
 
 //------------------------------------------------------------------------
 // EXERCICI 8
@@ -92,6 +153,11 @@ float Infininorm(float M[N][N]) {
 }
 
 //------------------------------------------------------------------------
+// EXERCICI 9 (FER)
+
+
+
+//------------------------------------------------------------------------
 // EXERCICI 10
 
 float NormFrobenius( float M[N][N] ){
@@ -108,6 +174,11 @@ float NormFrobenius( float M[N][N] ){
   NFrob = sqrt(suma);
   printf("%f\n", NFrob);
 }
+
+//------------------------------------------------------------------------
+// EXERCICI 11 (FER)
+
+
 
 //------------------------------------------------------------------------
 // EXERCICI 12
