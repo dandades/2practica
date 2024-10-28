@@ -32,22 +32,6 @@ void InitData(){
 //------------------------------------------------------------------------
 // EXERCICI 1
 
-void PrintVect( float Vect[N], int from, int numel){
-
-	int i;
-	int size = ( from + numel );
-
-	for( i = from; i < size; i++ )
-		printf("%f ", Vect[i]);
-	printf("\n");
-}
-
-int main() {
-
-	InitData();
-        PrintVect( V1, 0, 10);
-
-}
 
 //------------------------------------------------------------------------
 // EXERCICI 2
@@ -63,23 +47,6 @@ void PrintRow( float mat[N][N], int row, int from, int numel ){
 //------------------------------------------------------------------------
 // EXERCICI 3
 
-void MultEscalar( float vect[N], float vectres[N], float alfa){
-
-	int i;
-	for( i = 0; i < N; i++ ){
-		vectres[i] = vect[i] * alfa;
-	}
-}
-
-int main() {
-
-	InitData();
-	float nouVector[N];
-	float num = 3.5;
-
-	MultEscalar( V1, nouVector, num);
-
-}
 
 //------------------------------------------------------------------------
 // EXERCICI 4
@@ -96,24 +63,17 @@ float Scalar( float vect1[N], float vect2[N] ) {
 //------------------------------------------------------------------------
 // EXERCICI 5 (ACABAR)
 
-float Magnitude( float vect[N] ){
-
-	Scalar( vect[N], vect[N] )
-	}
-}
-
 //------------------------------------------------------------------------
 // EXERCICI 6
 
 int Ortogonal( float vect1[N], float vect2[N] ){
-  producte = Scalar( vect1, vect2 );
+  float producte = Scalar( vect1, vect2 );
     
   if (producte == 0){
     return 1;
   }else{
     return 0;
   }
-}
 }
 
 //------------------------------------------------------------------------
@@ -184,7 +144,6 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
       fila += producte;
     }
     vectres[i] = fila;
-    return vectres;
   }
 }
 
@@ -192,34 +151,6 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
 
 //------------------------------------------------------------------------
 // MAIN
+
 int main(){
-  int row, from, numel;
-  
-  InitData();
-  
-  printf("Introdueix el valor per row:");
-  scanf("%d", &row);
-  printf("Introdueix el valor per from:");
-  scanf("%d", &from);
-  printf("Introdueix el valor per numel:");
-  scanf("%d", &numel); 
-  PrintRow( Mat, row, from, numel );
-
-  
-
-  Scalar(V1, V2);
-  Scalar(V1, V3);
-  Scalar(V2, V3);
-
-  Magnitude(V1);
-  Magnitude(V2);
-  Magnitude(V3);
-
-  Infininorm(Mat);
-  Infininorm(MatDD);
-  
-  NormFrobenius(Mat);
-  NormFrobenius(MatDD);
 }
-
-
