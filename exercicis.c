@@ -33,96 +33,80 @@ void InitData(){
 // EXERCICI 1
 
 void PrintVect( float Vect[N], int from, int numel){
-
 	int i;
 	int size = ( from + numel );
-
-	for( i = from; i < size; i++ )
+	for( i = from; i < size; i++ ){
 		printf("%f ", Vect[i]);
+	}
 	printf("\n");
-}
-
-int main() {
-
-	InitData();
-        PrintVect( V1, 0, 10);
-
 }
 
 //------------------------------------------------------------------------
 // EXERCICI 2
 
-
 void PrintRow( float mat[N][N], int row, int from, int numel ){
-  for ( int j = from; j <= from+numel; j++ ){
-    printf("%f ", mat[row][j]);
-  }
-  printf("\n");
+	for ( int j = from; j <= from+numel; j++ ){
+		printf("%f ", mat[row][j]);
+	}
+	printf("\n");
 }
 
 //------------------------------------------------------------------------
 // EXERCICI 3
 
 void MultEscalar( float vect[N], float vectres[N], float alfa){
-
 	int i;
 	for( i = 0; i < N; i++ ){
 		vectres[i] = vect[i] * alfa;
 	}
 }
 
-int main() {
-
-	InitData();
-	float nouVector[N];
-	float num = 3.5;
-
-	MultEscalar( V1, nouVector, num);
-
-}
-
 //------------------------------------------------------------------------
 // EXERCICI 4
 
 float Scalar( float vect1[N], float vect2[N] ) {
-  float producte = 0.0;
-  
-  for ( int i = 0; i < N; i++ ){
-    producte += vect1[i] * vect2[i];
-  }
-  printf("%f\n", producte);
+	float producte = 0.0;
+
+	for ( int i = 0; i < N; i++ ){
+		producte += vect1[i] * vect2[i];
+	}
+	return producte;
 }
 
 //------------------------------------------------------------------------
-// EXERCICI 5 (ACABAR)
+// EXERCICI 5
 
 float Magnitude( float vect[N] ){
-
-	Scalar( vect[N], vect[N] )
-	}
+	float resultat;
+	resultat = Scalar( vect, vect );
+	return resultat;
 }
 
 //------------------------------------------------------------------------
 // EXERCICI 6
 
 int Ortogonal( float vect1[N], float vect2[N] ){
-  float producte = 0.0;
-  
-  for ( int i = 0; i < N; i++ ){
-    producte += vect1[i] * vect2[i];
-    
-  if (producte == 0){
-    return 1;
-  }else{
-    return 0;
-  }
-}
+	float producte = Scalar( vect1, vect2 );
+	if (producte == 0){
+		return 1;
+	}else{
+		return 0;
+	}
 }
 
 //------------------------------------------------------------------------
-// EXERCICI 7 (FER)
+// EXERCICI 7
 
+void Projection( float vect1[N], float vect2[N], float vectres[N]){
+	float escalar_uv = Scalar( vect1, vect2 );
+	float magnitud_v = Magnitude( vect2 );
+	float resultat = (escalar_uv / magnitud_v);
 
+	int i;
+	for( i = 0; i < N; i++){
+		vectres[i] = resultat * vect2[i];
+	}
+}
 
 //------------------------------------------------------------------------
 // EXERCICI 8
