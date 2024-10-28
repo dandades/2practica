@@ -90,7 +90,7 @@ float Scalar( float vect1[N], float vect2[N] ) {
   for ( int i = 0; i < N; i++ ){
     producte += vect1[i] * vect2[i];
   }
-  printf("%f\n", producte);
+  return producte;
 }
 
 //------------------------------------------------------------------------
@@ -106,10 +106,7 @@ float Magnitude( float vect[N] ){
 // EXERCICI 6
 
 int Ortogonal( float vect1[N], float vect2[N] ){
-  float producte = 0.0;
-  
-  for ( int i = 0; i < N; i++ ){
-    producte += vect1[i] * vect2[i];
+  producte = Scalar( vect1, vect2 );
     
   if (producte == 0){
     return 1;
@@ -142,7 +139,7 @@ float Infininorm(float M[N][N]) {
         }
     }
 
-    printf("%f\n", max);
+    return max;
 }
 
 //------------------------------------------------------------------------
@@ -165,7 +162,7 @@ float NormFrobenius( float M[N][N] ){
     }
   }
   NFrob = sqrt(suma);
-  printf("%f\n", NFrob);
+  return NFrob;
 }
 
 //------------------------------------------------------------------------
@@ -187,6 +184,7 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
       fila += producte;
     }
     vectres[i] = fila;
+    return vectres;
   }
 }
 
