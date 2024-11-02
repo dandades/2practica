@@ -147,8 +147,79 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
   }
 }
 
+//------------------------------------------------------------------------
+// EXERCICI 13
 
+int JAplicable( float M[N][N] ){
+  int valid = 0;
+  
+  for (int i=0; i<N; i++){
+    float fresta = 0.0;
+    
+    for (int j=0; i<N; j++){
+      
+      if (i != j){
+        fresta += M[i][j];
+      }
+    }
+    
+    if ( fabs(M[i][i]) > fresta ){
+      valid += 1;  
+    }
+  }
+  
+  if (valid = N){
+    return 1;
+    
+  }else{
+    return 0;
+    
+  }
+}
 
+int Jacobi( float M[N][N] , float vect[N], float vectres[N], unsigned iter ){
+  
+  int retorn = JAplicable( M );
+  
+  if (retorn == 1){
+    
+    float NouV[N];
+    for ( int i=0; i<N; i++){
+      NouV[i]=0.0;
+    }
+    
+    for ( int k=0; k<iter; k++){
+    
+      for ( int i=0; i<N; i++){
+        float suma = 0.0;
+        
+        for ( int j=0; j<N; j++){
+        
+          if (i != j){
+            suma += M[i][j]*NouV[i];
+          }
+        }
+        
+        NouV[i] = (vect[i] - suma) / M[i][i];
+      }
+    }
+    vectres=NouV;
+  }
+  return retorn;
+}  
+
+//------------------------------------------------------------------------
+// PUNT EXTRA
+
+void Precisio( float vectres[N], float vect[N], float vectres2[N], float precisio ){
+  
+  for ( int i=0; i<N; i++){
+    vectres2[i]=fabs(vectres[i]-vect[i]);
+  }
+  
+  precisio = Magnitude( vect2 );
+}
+  
 //------------------------------------------------------------------------
 // MAIN
 
