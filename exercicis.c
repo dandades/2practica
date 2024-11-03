@@ -123,13 +123,29 @@ float Infininorm(float M[N][N]) {
         }
     }
 
-    printf("%f\n", max);
+    printf("%f\n", max); //No hauria de fer un return?
 }
 
 //------------------------------------------------------------------------
-// EXERCICI 9 (FER)
+// EXERCICI 9
 
+float Onenorm(float M[N][N]) {
+	float max = 0.0;
 
+	for (int j = 0; j < N; j++) {
+		float columna = 0.0;
+
+		for (int i = 0; i <N; i++) {
+			columna += fabs(M[i][j]);
+		}
+
+		if (columna > max) {
+			max = columna;
+		}
+	}
+
+	return max;
+}
 
 //------------------------------------------------------------------------
 // EXERCICI 10
@@ -137,7 +153,7 @@ float Infininorm(float M[N][N]) {
 float NormFrobenius( float M[N][N] ){
   float suma = 0.0;
   float NFrob = 0.0;
-  
+
   for (int i = 0; i < N; i++ ){
     for (int j = 0; j < N; j++ ){
       float quadrat = 0.0;
@@ -146,12 +162,30 @@ float NormFrobenius( float M[N][N] ){
     }
   }
   NFrob = sqrt(suma);
-  printf("%f\n", NFrob);
+  printf("%f\n", NFrob); //No hauria de ser un return?
 }
 
 //------------------------------------------------------------------------
-// EXERCICI 11 (FER)
+// EXERCICI 11
 
+int DiagonalDom( float M[N][N] ){
+
+	for( int i = 0; i < N; i++){
+		float element = fabs(M[i][i]);
+		float suma = 0.0;
+
+		for( int j = 0; j < N; j++){
+			if (j != i){
+				suma += fabs(M[i][j]);
+			}
+		}
+
+		if (suma > element){
+			return 0;
+		}
+	}
+	return 1;
+}
 
 
 //------------------------------------------------------------------------
