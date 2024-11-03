@@ -45,8 +45,8 @@ void PrintVect( float Vect[N], int from, int numel){
 // EXERCICI 2
 
 void PrintRow( float mat[N][N], int row, int from, int numel ){
-	for ( int j = from; j <= from+numel; j++ ){ //Hauria de ser < en comptes de <=
-		printf("%f ", mat[row][j]);
+	for ( int j = from; j < from+numel; j++ ){ //Signe modificat
+  		printf("%f ", mat[row][j]);
 	}
 	printf("\n");
 }
@@ -109,21 +109,21 @@ void Projection( float vect1[N], float vect2[N], float vectres[N]){
 // EXERCICI 8
 
 float Infininorm(float M[N][N]) {
-    float max = 0.0;
+	float max = 0.0;
 
-    for (int i = 0; i < N; i++) {
-        float fila = 0.0;
+	for (int i = 0; i < N; i++) {
+		float fila = 0.0;
 
-        for (int j = 0; j < N; j++) {
-            fila += fabs(M[i][j]);
-        }
+		for (int j = 0; j < N; j++) {
+			fila += fabs(M[i][j]);
+		}
 
-        if (fila > max) {
-            max = fila;
-        }
-    }
+		if (fila > max) {
+			max = fila;
+		}
+	}
 
-    printf("%f\n", max); //No hauria de fer un return?
+	return max;
 }
 
 //------------------------------------------------------------------------
@@ -151,18 +151,18 @@ float Onenorm(float M[N][N]) {
 // EXERCICI 10
 
 float NormFrobenius( float M[N][N] ){
-  float suma = 0.0;
-  float NFrob = 0.0;
+	float suma = 0.0;
+	float NFrob = 0.0;
 
-  for (int i = 0; i < N; i++ ){
-    for (int j = 0; j < N; j++ ){
-      float quadrat = 0.0;
-      quadrat = M[i][j] * M[i][j];
-      suma += quadrat;
-    }
-  }
-  NFrob = sqrt(suma);
-  printf("%f\n", NFrob); //No hauria de ser un return?
+	for (int i = 0; i < N; i++ ){
+		for (int j = 0; j < N; j++ ){
+			float quadrat = 0.0;
+			quadrat = M[i][j] * M[i][j];
+			suma += quadrat;
+		}
+	}
+	NFrob = sqrt(suma);
+	return NFrob;
 }
 
 //------------------------------------------------------------------------
@@ -193,50 +193,135 @@ int DiagonalDom( float M[N][N] ){
 
 void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
 
-  for (int i = 0; i < N; i++ ){
-    float fila = 0.0;
-    
-    for (int j = 0; j < N; j++ ){
-      float producte = 0.0;  
-      producte = M[i][j] * vect[j];
-      fila += producte;
-    }
-    vectres[i] = fila;
-  }
+	for (int i = 0; i < N; i++ ){
+		float fila = 0.0;
+
+		for (int j = 0; j < N; j++ ){
+			float producte = 0.0;
+			producte = M[i][j] * vect[j];
+			fila += producte;
+		}
+		vectres[i] = fila;
+	}
+}
+//------------------------------------------------------------------------
+// EXERCICI 13
+
+int JAplicable( float M[N][N] ){
+	int valid = 0;
+
+	for (int i=0; i<N; i++){
+		float fresta = 0.0;
+
+		for (int j=0; i<N; j++){
+
+			if (i != j){
+				fresta += M[i][j];
+			}
+		}
+
+		if ( fabs(M[i][i]) > fresta ){
+			valid += 1;
+		}
+	}
+
+	if (valid = N){
+		return 1;
+	}else{
+		return 0;
+	}
 }
 
+int Jacobi( float M[N][N] , float vect[N], float vectres[N], unsigned iter ){
 
+	int retorn = JAplicable( M );
+
+	if (retorn == 1){
+
+		float NouV[N];
+		for ( int i=0; i<N; i++){
+			NouV[i]=0.0;
+		}
+
+		for ( int k=0; k<iter; k++){
+
+			for ( int i=0; i<N; i++){
+				float suma = 0.0;
+
+				for ( int j=0; j<N; j++){
+
+					if (i != j){
+						suma += M[i][j]*NouV[i];
+					}
+				}
+
+				NouV[i] = (vect[i] - suma) / M[i][i];
+			}
+		}
+		vectres=NouV;
+	}
+	return retorn;
+}
+
+//------------------------------------------------------------------------
+// PUNT EXTRA
+
+void Precisio( float vectres[N], float vect[N], float vectres2[N], float precisio ){
+
+	for ( int i=0; i<N; i++){
+		vectres2[i]=fabs(vectres[i]-vect[i]);
+	}
+
+	precisio = Magnitude( vectres2 ); // És vectres2 i no vect2 ?
+}
 
 //------------------------------------------------------------------------
 // MAIN
+
 int main(){
-  int row, from, numel;
-  
-  InitData();
-  
-  printf("Introdueix el valor per row:");
-  scanf("%d", &row);
-  printf("Introdueix el valor per from:");
-  scanf("%d", &from);
-  printf("Introdueix el valor per numel:");
-  scanf("%d", &numel); 
-  PrintRow( Mat, row, from, numel );
 
-  
+	InitData();
 
-  Scalar(V1, V2);
-  Scalar(V1, V3);
-  Scalar(V2, V3);
+	// PROVA A
+	printf("Prova A\n");
+	printf("V1 del 0 al 9 i del 256 al 265:\n");
+	PrintVect(V1, 0, 10);
+	PrintVect(V1, 256, 10);
 
-  Magnitude(V1);
-  Magnitude(V2);
-  Magnitude(V3);
+	printf("\nV2 del 0 al 9 i del 256 al 265:\n");
+	PrintVect(V2, 0, 10);
+	PrintVect(V2, 256, 10);
 
-  Infininorm(Mat);
-  Infininorm(MatDD);
-  
-  NormFrobenius(Mat);
-  NormFrobenius(MatDD);
+	printf("\nV3 del 0 al 9 i del 256 al 265:\n");
+	PrintVect(V3, 0, 10);
+	PrintVect(V3, 256, 10);
+
+	// PROVA B
+	printf("\nProva B\n");
+	printf("Mat fila 0 i fila 100 del 0 al 9:\n");
+	PrintRow(Mat, 0, 0, 10);
+	PrintRow(Mat, 100, 0, 10);
+
+	// PROVA C
+	printf("\nProva C\n");
+	printf("MatDD fila 0 del 0 al 9 i fila 100 del 95 al 104:\n");
+	PrintRow(MatDD, 0, 0, 10);
+	PrintRow(MatDD, 100, 90, 10);
+
+	// PROVA D
+	printf("\nProva D\n");
+
+	float Infininorma_Mat = Infininorm(Mat);
+	float Norma_u_Mat = Onenorm(Mat);
+	float NFrobenius_Mat = NormFrobenius(Mat);
+	int DiagoDom_Mat = DiagonalDom(Mat);
+
+	printf("Infininorma de Mat = %f",Infininorma_Mat);
+
+	float Infininorma_MatDD = Infininorm(MatDD);
+        float Norma_u_MatDD = Onenorm(MatDD);
+        float NFrobenius_MatDD = NormFrobenius(MatDD);
+        int DiagoDom_MatDD = DiagonalDom(MatDD);
 }
 
 
