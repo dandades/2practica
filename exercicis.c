@@ -45,7 +45,7 @@ void PrintVect( float Vect[N], int from, int numel){
 // EXERCICI 2
 
 void PrintRow( float mat[N][N], int row, int from, int numel ){
-	for ( int j = from; j <= from+numel; j++ ){
+	for ( int j = from; j <= from+numel; j++ ){ //Hauria de ser < en comptes de <=
 		printf("%f ", mat[row][j]);
 	}
 	printf("\n");
@@ -78,7 +78,7 @@ float Scalar( float vect1[N], float vect2[N] ) {
 
 float Magnitude( float vect[N] ){
 	float resultat;
-	resultat = Scalar( vect, vect );
+	resultat = sqrt(Scalar( vect, vect));
 	return resultat;
 }
 
@@ -100,12 +100,9 @@ int Ortogonal( float vect1[N], float vect2[N] ){
 void Projection( float vect1[N], float vect2[N], float vectres[N]){
 	float escalar_uv = Scalar( vect1, vect2 );
 	float magnitud_v = Magnitude( vect2 );
-	float resultat = (escalar_uv / magnitud_v);
+	float divisio = (escalar_uv / magnitud_v);
 
-	int i;
-	for( i = 0; i < N; i++){
-		vectres[i] = resultat * vect2[i];
-	}
+	MultEscalar( vect2, vectres, divisio);
 }
 
 //------------------------------------------------------------------------
