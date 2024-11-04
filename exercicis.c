@@ -207,34 +207,9 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
 //------------------------------------------------------------------------
 // EXERCICI 13
 
-int JAplicable( float M[N][N] ){
-	int valid = 0;
-
-	for (int i=0; i<N; i++){
-		float fresta = 0.0;
-
-		for (int j=0; i<N; j++){
-
-			if (i != j){
-				fresta += M[i][j];
-			}
-		}
-
-		if ( fabs(M[i][i]) > fresta ){
-			valid += 1;
-		}
-	}
-
-	if (valid = N){
-		return 1;
-	}else{
-		return 0;
-	}
-}
-
 int Jacobi( float M[N][N] , float vect[N], float vectres[N], unsigned iter ){
 
-	int retorn = JAplicable( M );
+	int retorn = DiagonalDom( M );
 
 	if (retorn == 1){
 
@@ -272,7 +247,7 @@ void Precisio( float vectres[N], float vect[N], float vectres2[N], float precisi
 		vectres2[i]=fabs(vectres[i]-vect[i]);
 	}
 
-	precisio = Magnitude( vectres2 ); // És vectres2 i no vect2 ?
+	precisio = Magnitude( vectres2 );
 }
 
 //------------------------------------------------------------------------
@@ -282,8 +257,9 @@ int main(){
 
 	InitData();
 
+
 	// PROVA A
-	printf("Prova A\n");
+	printf("PROVA A\n");
 	printf("V1 del 0 al 9 i del 256 al 265:\n");
 	PrintVect(V1, 0, 10);
 	PrintVect(V1, 256, 10);
@@ -296,17 +272,20 @@ int main(){
 	PrintVect(V3, 0, 10);
 	PrintVect(V3, 256, 10);
 
+
 	// PROVA B
 	printf("\nProva B\n");
 	printf("Mat fila 0 i fila 100 del 0 al 9:\n");
 	PrintRow(Mat, 0, 0, 10);
 	PrintRow(Mat, 100, 0, 10);
 
+
 	// PROVA C
 	printf("\nProva C\n");
 	printf("MatDD fila 0 del 0 al 9 i fila 100 del 95 al 104:\n");
 	PrintRow(MatDD, 0, 0, 10);
-	PrintRow(MatDD, 100, 90, 10);
+	PrintRow(MatDD, 100, 95, 10);
+
 
 	// PROVA D
 	printf("\nProva D\n");
@@ -317,11 +296,119 @@ int main(){
 	int DiagoDom_Mat = DiagonalDom(Mat);
 
 	printf("Infininorma de Mat = %f",Infininorma_Mat);
+	printf("\nNorma ú de Mat = %f",Norma_u_Mat);
+	printf("\nNorma de Frobenius de Mat = %f",Infininorma_Mat);
+
+	if (DiagoDom_Mat == 1){
+		printf("\nLa matriu Mat és diagonal dominant\n");
+	}else{
+		printf("\nLa matriu Mat no és diagonal dominant\n");
+	}
 
 	float Infininorma_MatDD = Infininorm(MatDD);
         float Norma_u_MatDD = Onenorm(MatDD);
         float NFrobenius_MatDD = NormFrobenius(MatDD);
         int DiagoDom_MatDD = DiagonalDom(MatDD);
+
+	printf("\nInfininorma de MatDD = %f",Infininorma_MatDD);
+        printf("\nNorma ú de MatDD = %f",Norma_u_MatDD);
+        printf("\nNorma de Frobenius de MatDD = %f",Infininorma_MatDD);
+
+        if (DiagoDom_MatDD == 1){
+                printf("\nLa matriu MatDD és diagonal dominant\n");
+        }else{
+                printf("\nLa matriu MatDD no és diagonal dominant\n");
+	}
+
+
+	// PROVA E
+	printf("\nProva E\n");
+	float escalar_v1_v2 = Scalar(V1,V2);
+	float escalar_v1_v3 = Scalar(V1,V3);
+	float escalar_v2_v3 = Scalar(V2,V3);
+
+	printf("Escalar <V1,V2> = %f",escalar_v1_v2);
+	printf(" Escalar <V1,V3> = %f",escalar_v1_v3);
+	printf(" Escalar <V2,V3> = %f\n",escalar_v2_v3);
+
+
+	// PROVA F
+	printf("\nProva F\n");
+	float magnitud_v1 = Magnitude(V1);
+	float magnitud_v2 = Magnitude(V2);
+	float magnitud_v3 = Magnitude(V3);
+
+	printf("Magnitud V1, V2 i V3 = %f %f %f\n",magnitud_v1, magnitud_v2, magnitud_v3);
+
+
+	// PROVA G
+	printf("\nProva G\n");
+	float ortogonal_v1_v2 = Ortogonal(V1,V2);
+	float ortogonal_v1_v3 = Ortogonal(V1,V3);
+	float ortogonal_v2_v3 = Ortogonal(V2,V3);
+
+	if (ortogonal_v1_v2 == 1){
+		printf("V1 i V2 són ortogonals\n");
+	}
+	if (ortogonal_v1_v3 == 1){
+		printf("V1 i V3 són ortogonals\n");
+	}
+	if (ortogonal_v2_v3 == 1){
+		printf("V2 i V3 són ortogonals\n");
+	}
+
+
+	// PROVA H
+	printf("\nProva H\n");
+
+	float vectres3[N];
+	MultEscalar(V3,vectres3,2.0);
+
+	printf("Els elements 0 al 9 i 256 al 265 del resultat de multiplicar V3x2.0 són:\n");
+	PrintVect(vectres3,0,10);
+	PrintVect(vectres3,256,10);
+
+
+	// PROVA I
+	printf("\nProva I\n");
+
+	float proj_v2_v3[N];
+	float proj_v1_v2[N];
+
+	Projection(V2,V3,proj_v2_v3);
+	Projection(V1,V2,proj_v1_v2);
+
+	printf("Els elements 0 a 9 del resultat de la projecció de V2 sobre V3 són:\n");
+	PrintVect(proj_v2_v3,0,10);
+	printf("Els elements 0 a 9 del resultat de la projecció de V1 sobre V2 són:\n");
+	PrintVect(proj_v1_v2,0,10);
+
+
+	// PROVA J
+	printf("\nProva J\n");
+
+	float mult_Mat_v2[N];
+
+	Matriu_x_Vector(Mat,V2,mult_Mat_v2);
+	printf("Els elements 0 a 9 del resultat de la multiplicació de Mat per v2 són:\n");
+	PrintVect(mult_Mat_v2,0,10);
+
+
+	// PROVA K
+	printf("\nProva K\n");
+
+	float resultat_1_iter[N];
+	float resultat_1000_iter[N];
+
+	int aplicable_1_iter = Jacobi(MatDD,V3,resultat_1_iter,1);
+	int aplicable_1000_iter = Jacobi(MatDD,V3,resultat_1000_iter,1000);
+
+	if (aplicable_1_iter == 0){
+		printf("La matriu DD no és diagonal dominant,no es pot aplicar Jacobi\n");
+	}else{
+		printf("Els elements 0 a 9 de la solució (1 iter) del sistema d'equacions són:\n");
+		PrintVect(resultat_1_iter,0,10);
+	}
 }
 
 
