@@ -226,14 +226,16 @@ int Jacobi( float M[N][N] , float vect[N], float vectres[N], unsigned iter ){
 				for ( int j=0; j<N; j++){
 
 					if (i != j){
-						suma += M[i][j]*NouV[i];
+						suma += M[i][j]*vectres[j];
 					}
 				}
 
 				NouV[i] = (vect[i] - suma) / M[i][i];
 			}
+			for ( int i=0; i<N; i++){
+				vectres[i] = NouV[i];
+			}
 		}
-		vectres=NouV;
 	}
 	return retorn;
 }
@@ -399,15 +401,31 @@ int main(){
 
 	float resultat_1_iter[N];
 	float resultat_1000_iter[N];
+	float resultat_Mat[N];
 
 	int aplicable_1_iter = Jacobi(MatDD,V3,resultat_1_iter,1);
 	int aplicable_1000_iter = Jacobi(MatDD,V3,resultat_1000_iter,1000);
+	int aplicable_Mat = Jacobi(Mat,V3,resultat_Mat,1);
 
 	if (aplicable_1_iter == 0){
 		printf("La matriu DD no és diagonal dominant,no es pot aplicar Jacobi\n");
 	}else{
 		printf("Els elements 0 a 9 de la solució (1 iter) del sistema d'equacions són:\n");
 		PrintVect(resultat_1_iter,0,10);
+	}
+
+	if (aplicable_1000_iter == 0){
+		printf("La matriu DD no és diagonal dominant,no es pot aplicar Jacobi\n");
+        }else{
+                printf("Els elements 0 a 9 de la solució (1000 iter) del sistema d'equacions són:\n");
+                PrintVect(resultat_1000_iter,0,10);
+	}
+
+	if (aplicable_Mat == 0){
+                printf("La matriu M no és diagonal dominant,no es pot aplicar Jacobi\n");
+        }else{
+                printf("Els elements 0 a 9 de la solució (1 iter) del sistema d'equacions són:\n");
+                PrintVect(resultat_Mat,0,10);
 	}
 }
 
