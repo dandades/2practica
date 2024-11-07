@@ -299,7 +299,7 @@ int main(){
 
 	printf("Infininorma de Mat = %f",Infininorma_Mat);
 	printf("\nNorma ú de Mat = %f",Norma_u_Mat);
-	printf("\nNorma de Frobenius de Mat = %f",Infininorma_Mat);
+	printf("\nNorma de Frobenius de Mat = %f",NFrobenius_Mat);
 
 	if (DiagoDom_Mat == 1){
 		printf("\nLa matriu Mat és diagonal dominant\n");
@@ -314,7 +314,7 @@ int main(){
 
 	printf("\nInfininorma de MatDD = %f",Infininorma_MatDD);
         printf("\nNorma ú de MatDD = %f",Norma_u_MatDD);
-        printf("\nNorma de Frobenius de MatDD = %f",Infininorma_MatDD);
+        printf("\nNorma de Frobenius de MatDD = %f",NFrobenius_MatDD);
 
         if (DiagoDom_MatDD == 1){
                 printf("\nLa matriu MatDD és diagonal dominant\n");
@@ -408,21 +408,21 @@ int main(){
 	int aplicable_Mat = Jacobi(Mat,V3,resultat_Mat,1);
 
 	if (aplicable_1_iter == 0){
-		printf("La matriu DD no és diagonal dominant,no es pot aplicar Jacobi\n");
+		printf("La matriu DD no és diagonal dominant, no es pot aplicar Jacobi\n");
 	}else{
 		printf("Els elements 0 a 9 de la solució (1 iter) del sistema d'equacions són:\n");
 		PrintVect(resultat_1_iter,0,10);
 	}
 
 	if (aplicable_1000_iter == 0){
-		printf("La matriu DD no és diagonal dominant,no es pot aplicar Jacobi\n");
+		printf("La matriu DD no és diagonal dominant, no es pot aplicar Jacobi\n");
         }else{
                 printf("Els elements 0 a 9 de la solució (1000 iter) del sistema d'equacions són:\n");
                 PrintVect(resultat_1000_iter,0,10);
 	}
 
 	if (aplicable_Mat == 0){
-                printf("La matriu M no és diagonal dominant,no es pot aplicar Jacobi\n");
+                printf("La matriu M no és diagonal dominant, no es pot aplicar Jacobi\n");
         }else{
                 printf("Els elements 0 a 9 de la solució (1 iter) del sistema d'equacions són:\n");
                 PrintVect(resultat_Mat,0,10);
