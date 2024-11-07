@@ -193,15 +193,11 @@ int DiagonalDom( float M[N][N] ){
 
 void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
 
+	float prod_escalar;
 	for (int i = 0; i < N; i++ ){
-		float fila = 0.0;
 
-		for (int j = 0; j < N; j++ ){
-			float producte = 0.0;
-			producte = M[i][j] * vect[j];
-			fila += producte;
-		}
-		vectres[i] = fila;
+		prod_escalar = Scalar(M[i], vect);
+		vectres[i] = prod_escalar;
 	}
 }
 //------------------------------------------------------------------------
