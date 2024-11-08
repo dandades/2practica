@@ -43,8 +43,8 @@ void InitData(){
 // EXERCICI 1: Mostrar elements d'un vector
 
 // Definim la funció PrintVect com un void (no retornarà cap valor al final).
-// Incloem 3 paràmetres: Vect[N] és el vector sobre el que volem mostrar els valors; from és la primera posició del vector que volem mostrar; i numel és el nombre d'elements a mostrar.
-void PrintVect( float Vect[N], int from, int numel){
+// Incloem 3 paràmetres: vect[N] és el vector sobre el que volem mostrar els valors; from és la primera posició del vector que volem mostrar; i numel és el nombre d'elements a mostrar.
+void PrintVect(float vect[N], int from, int numel){
 
 	// Generem una variable size que és la suma de from i numel, és a dir, marca la posició del primer element que no volem mostrar..
 	int size = (from + numel);
@@ -52,7 +52,7 @@ void PrintVect( float Vect[N], int from, int numel){
 	// Utilitzem un bucle for per récorrer tots els elements que volem mostrar.
 	// Mostrem per pantalla l'element i del vector. Utilizem %f per mostrar una variable de tipus float.
 	for(int i = from; i < size; i++){
-		printf("%f ", Vect[i]);
+		printf("%f ", vect[i]);
 	}
 
 	// Fem un salt de línia al final per separar la impressió de les següents comandes a realitzar.
@@ -98,13 +98,13 @@ void MultEscalar(float vect[N], float vectres[N], float alfa){
 
 // Definim la funció Scalar com un float, retornarà un valor float al final.
 // Incloem 2 paràmetres: vect1 i vect2 són els vectors que volem calcular el producte escalar.
-float Scalar( float vect1[N], float vect2[N] ) {
+float Scalar(float vect1[N], float vect2[N]) {
 
 	// Definim una variable prod_escalar com un float amb valor 0. Utilitzarem aquesta variable per guardar el resultat final de l'operació.
 	float prod_escalar = 0.0;
 
 	// Utilitzem un bucle for per récorrer tots els elements dels vectors.
-	for ( int i = 0; i < N; i++ ){
+	for (int i = 0; i < N; i++){
 
 		// Afegim a prod_escalar la multiplicació dels elements i de vect1 i vect2.
 		prod_escalar += vect1[i] * vect2[i];
@@ -302,10 +302,10 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] ){
 
 // Definim la funció Jacobi com un int, retornarà 1 si es pot realitzar el procediment i 0 si no.
 // Incloem 4 paràmetres: M i vect que són la matriu i el vector donats; vectres és el vector a calcular; i iter és el nombre d'iteracions del mètode.
-int Jacobi( float M[N][N] , float vect[N], float vectres[N], unsigned iter ){
+int Jacobi(float M[N][N] , float vect[N], float vectres[N], unsigned iter){
 
 	// Primer mirem si la matriu és diagonal dominant. Si ho és, retorna 1 i s'executa el mètode; si no ho és, no s'executa.
-	int retorn = DiagonalDom( M );
+	int retorn = DiagonalDom(M);
 
 	if (retorn == 1){
 
